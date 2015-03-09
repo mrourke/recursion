@@ -10,7 +10,9 @@ var stringifyJSON = function(obj) {
 		if (obj[objKeys[x]] === null) {
 			stringified += null + ',';
 		} else if (typeof obj[objKeys[x]] === 'object') {
-
+			if (Array.isArray(obj[objKeys[x]])) {
+                stringified += '[' + stringifyJSON(obj[objKeys[x]]) + ']';
+            }
 		} else if (typeof obj[objKeys[x]] === 'string') {
 			stringified += '"' + obj[objKeys[x]] + '",';
 		} else if (typeof obj[objKeys[x]] === 'function') {
