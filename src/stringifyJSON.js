@@ -3,15 +3,20 @@
 
 // but you don't so you're going to write it from scratch:
 
-var stringifyJSON = function(obj) {
+var stringifyJSON = function(obj, subObj) {
 	var objKeys = Object.keys(obj),
 		stringified = "";
 	for (var x=0;x<objKeys.length;x++) {
+		if (subObj === 1) {
+			stringified += '"' + objKeys[x] + '":';
+		}
 		if (obj[objKeys[x]] === null) {
 			stringified += null + ',';
 		} else if (typeof obj[objKeys[x]] === 'object') {
 			if (Array.isArray(obj[objKeys[x]])) {
                 stringified += '[' + stringifyJSON(obj[objKeys[x]]) + ']';
+            } else {
+            	stringified += '{' + stringifyJSON(obj[objKeys[x]]) + '}';
             }
 		} else if (typeof obj[objKeys[x]] === 'string') {
 			stringified += '"' + obj[objKeys[x]] + '"';
