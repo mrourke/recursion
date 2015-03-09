@@ -14,11 +14,14 @@ var stringifyJSON = function(obj) {
                 stringified += '[' + stringifyJSON(obj[objKeys[x]]) + ']';
             }
 		} else if (typeof obj[objKeys[x]] === 'string') {
-			stringified += '"' + obj[objKeys[x]] + '",';
+			stringified += '"' + obj[objKeys[x]] + '"';
 		} else if (typeof obj[objKeys[x]] === 'function') {
 
 		} else {
-			stringified += obj[objKeys[x]] + ',';
+			stringified += obj[objKeys[x]];
+		}
+		if (typeof obj[objKeys[x]] !== 'function' && x < objKeys.length-1) {
+			stringified += ",";
 		}
 	}
 	return stringified;
