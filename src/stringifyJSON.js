@@ -7,16 +7,18 @@ var stringifyJSON = function(obj) {
 	var objKeys = Object.keys(obj),
 		stringified = "";
 	for (var x=0;x<objKeys.length;x++) {
-		if (typeof objKeys[x] === 'object') {
+		if (obj[objKeys[x]] === null) {
+			stringified += null + ',';
+		} else if (typeof obj[objKeys[x]] === 'object') {
 
-		} else if (typeof objKeys[x] === 'string') {
+		} else if (typeof obj[objKeys[x]] === 'string') {
 			stringified += '"' + obj[objKeys[x]] + '",';
-		} else if (typeof objKeys[x] === 'function') {
+		} else if (typeof obj[objKeys[x]] === 'function') {
 
 		} else {
 			stringified += obj[objKeys[x]] + ',';
 		}
 	}
-
+	return stringified;
   // your code goes here
 };
