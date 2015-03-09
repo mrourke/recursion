@@ -4,5 +4,19 @@
 // but you don't so you're going to write it from scratch:
 
 var stringifyJSON = function(obj) {
+	var objKeys = Object.keys(obj),
+		stringified = "";
+	for (var x=0;x<objKeys.length;x++) {
+		if (typeof objKeys[x] === 'object') {
+
+		} else if (typeof objKeys[x] === 'string') {
+			stringified += '"' + obj[objKeys[x]] + '",';
+		} else if (typeof objKeys[x] === 'function') {
+
+		} else {
+			stringified += obj[objKeys[x]] + ',';
+		}
+	}
+
   // your code goes here
 };
