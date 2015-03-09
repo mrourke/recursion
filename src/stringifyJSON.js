@@ -11,12 +11,12 @@ var stringifyJSON = function(obj, subObj) {
 			stringified += '"' + objKeys[x] + '":';
 		}
 		if (obj[objKeys[x]] === null) {
-			stringified += null + ',';
+			stringified += null;
 		} else if (typeof obj[objKeys[x]] === 'object') {
 			if (Array.isArray(obj[objKeys[x]])) {
                 stringified += '[' + stringifyJSON(obj[objKeys[x]]) + ']';
             } else {
-            	stringified += '{' + stringifyJSON(obj[objKeys[x]]) + '}';
+            	stringified += '{' + stringifyJSON(obj[objKeys[x]],1) + '}';
             }
 		} else if (typeof obj[objKeys[x]] === 'string') {
 			stringified += '"' + obj[objKeys[x]] + '"';
