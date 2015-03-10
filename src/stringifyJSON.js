@@ -67,11 +67,15 @@ var stringifyJSON = function(obj) {
 			}
 			var objKeys = Object.keys(obj);
 			for (var x=0;x<objKeys.length;x++) {
-				stringified += '"'+objKeys[x]+'":'+stringifyJSON(obj[objKeys[x]);
-				if (x !== objKeys.length-1)
-						stringified += ',';
+				if (typeof obj[objKeys[x]] !== 'function' && typeof obj[objKeys[x]] !== 'undefined') {
+					stringified += '"'+objKeys[x]+'":'+stringifyJSON(obj[objKeys[x]]);
+					if (x !== objKeys.length-1)
+						stringified += ',';	
+				}				
 			}
 			return '{' + stringified + '}';
+		default:
+			return '';
 
 	}
 
