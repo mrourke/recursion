@@ -57,7 +57,15 @@ var stringifyJSON = function(obj) {
 		case 'object':
 			if (obj === null) 
 				return 'null';
-			var objKeys = Object.keys(obj);
+			if (Array.isArray(obj)) {
+				for (var x=0;x<obj.length;x++) {
+					stringified += stringifyJSON(obj[x]);
+					if (x !== obj.length-1)
+						stringified += ',';
+				}
+				return '['+stringified+']';
+			}	
+			
 			
 	}
 
