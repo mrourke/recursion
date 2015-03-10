@@ -5,30 +5,36 @@
 
 var stringifyJSON = function(obj, subObj) {
 	var objKeys = Object.keys(obj),
-		stringified = "";
+		stringified = '',
+		type = '';
 	for (var x=0;x<objKeys.length;x++) {
-		if (subObj === 1) {
+		type = typeof obj[objKeys[x]];
+		if (subObj === 1 && type !== 'function' && type !== undefined) {
 			stringified += '"' + objKeys[x] + '":';
 		}
 		if (obj[objKeys[x]] === null) {
 			stringified += null;
-		} else if (typeof obj[objKeys[x]] === 'object') {
+		} else if (type === 'object') {
 			if (Array.isArray(obj[objKeys[x]])) {
-                stringified += '[' + stringifyJSON(obj[objKeys[x]]) + ']';
+                stringified += stringifyJSON(obj[objKeys[x]]);
             } else {
             	stringified += '{' + stringifyJSON(obj[objKeys[x]],1) + '}';
             }
-		} else if (typeof obj[objKeys[x]] === 'string') {
+		} else if (type === 'string') {
 			stringified += '"' + obj[objKeys[x]] + '"';
-		} else if (typeof obj[objKeys[x]] === 'function') {
+		} else if (type === 'function') {
 
-		} else {
+		} else if (type !== 'undefined') {
 			stringified += obj[objKeys[x]];
 		}
-		if (typeof obj[objKeys[x]] !== 'function' && x < objKeys.length-1) {
+		if (type !== 'function' && x < objKeys.length-1) {
 			stringified += ",";
 		}
 	}
-	return stringified;
+	if (subObj !== 1) {
+		return '[' + stringified + ']';
+	} else {
+		return stringified;
+	}
   // your code goes here
 };
