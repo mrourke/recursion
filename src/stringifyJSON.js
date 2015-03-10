@@ -76,7 +76,5 @@ var stringifyJSON = function(obj) {
 			return '{' + stringified + '}';
 		default:
 			return '';
-
 	}
-
 }
